@@ -1,7 +1,7 @@
 // import { filter } from "redux/addContact"
 import { query } from "redux/filter"
 import { ConteinerFilter,InputFilterStyled } from "./inputFilter.styled"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch} from "react-redux"
 
 
 export const InputFilter = ({tilteInput,onAddFilter}) =>{
