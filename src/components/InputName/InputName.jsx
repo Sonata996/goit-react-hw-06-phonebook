@@ -2,6 +2,8 @@ import React from 'react';
 import { Formik, Field, Form} from 'formik';
 import * as Yup from 'yup';
 import { ConteinerLabel,FormButton } from './InputName.styled';
+import { useDispatch} from 'react-redux';
+import { add } from 'redux/addContact';
 
 
 
@@ -17,6 +19,7 @@ const userSchema  = Yup.object().shape({
   .required('This field is required!')
 })
 export const InputName = ({onCangeName}) =>{
+  const disPatch = useDispatch()
     return (
         <Formik
         initialValues={{
@@ -27,9 +30,10 @@ export const InputName = ({onCangeName}) =>{
         validationSchema={userSchema}
 
         onSubmit={(value, action) => {
-            onCangeName(value)
+          disPatch(add(value))
             action.resetForm()
         }}
+        
         pattern='/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/'
       >
         {({ errors, touched }) => (
