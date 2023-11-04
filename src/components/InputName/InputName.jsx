@@ -31,14 +31,11 @@ export const InputName = ({onCangeName}) =>{
         validationSchema={userSchema}
 
         onSubmit={(value, action) => {
-          console.log(value);
-          console.log(action);
-
           const similarityContact = contacts.filter(elem =>  elem.name.toLowerCase() === value.name.toLowerCase())
           if (similarityContact.length === 0) {
             disPatch(addContact(value))
         } else{
-            alert(`${action.payload.name} is already in contacts`)
+            alert(`${value.name} is already in contacts`)
         }
             action.resetForm()
         }}
