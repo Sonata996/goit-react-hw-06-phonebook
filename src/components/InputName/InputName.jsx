@@ -2,8 +2,8 @@ import React from 'react';
 import { Formik, Field, Form} from 'formik';
 import * as Yup from 'yup';
 import { ConteinerLabel,FormButton } from './InputName.styled';
-import { useDispatch} from 'react-redux';
-import { add } from 'redux/addContact';
+import { useDispatch, useSelector} from 'react-redux';
+import { addContact } from 'redux/contact';
 
 
 
@@ -20,6 +20,7 @@ const userSchema  = Yup.object().shape({
 })
 export const InputName = ({onCangeName}) =>{
   const disPatch = useDispatch()
+  const contacts = useSelector(state => state.contacts)
     return (
         <Formik
         initialValues={{
@@ -30,7 +31,15 @@ export const InputName = ({onCangeName}) =>{
         validationSchema={userSchema}
 
         onSubmit={(value, action) => {
-          disPatch(add(value))
+          console.log(value);
+          console.log(action);
+
+          const similarityContact = contacts.filter(elem =>  elem.name.toLowerCase() === value.name.toLowerCase())
+          if (similarityContact.length === 0) {
+            disPatch(addContact(value))
+        } else{
+            alert(`${action.payload.name} is already in contacts`)
+        }
             action.resetForm()
         }}
         
